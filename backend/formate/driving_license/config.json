@@ -1,0 +1,13 @@
+{
+    "document_type": "driving_license",
+    "reference_width": 500,
+    "reference_height": 700,
+    "required_fields": [
+        "name",
+        "license_number",
+        "date_of_birth",
+        "expiry_date",
+        "gender"
+    ],
+    "mrz_required": false
+}

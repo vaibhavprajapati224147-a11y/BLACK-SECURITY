@@ -1,0 +1,4579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0"
+>
+
+<title>
+BLACK SECURITY // HEXA NOVA
+</title>
+
+<style>
+
+@import url(
+'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap'
+);
+
+:root{
+
+--bg:#020506;
+--panel:#071011;
+--panel2:#091617;
+
+--border:#12383a;
+
+--green:#00ff9c;
+--cyan:#00e5ff;
+--yellow:#ffd166;
+--red:#ff3158;
+
+--text:#e9ffff;
+--muted:#6b8b8d;
+
+--mono:"JetBrains Mono",monospace;
+--sans:"Inter",sans-serif;
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+background:
+
+radial-gradient(
+circle at 75% 15%,
+rgba(0,255,156,.08),
+transparent 30%
+),
+
+radial-gradient(
+circle at 10% 80%,
+rgba(0,229,255,.05),
+transparent 30%
+),
+
+var(--bg);
+
+color:var(--text);
+
+font-family:var(--sans);
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+}
+
+body:before{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+background-image:
+
+linear-gradient(
+rgba(0,255,156,.045) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(0,255,156,.045) 1px,
+transparent 1px
+);
+
+background-size:40px 40px;
+
+opacity:.5;
+
+}
+
+body:after{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+pointer-events:none;
+
+background:
+
+repeating-linear-gradient(
+to bottom,
+transparent 0,
+transparent 4px,
+rgba(0,255,156,.015) 5px
+);
+
+z-index:999;
+
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+position:fixed;
+
+left:0;
+top:0;
+bottom:0;
+
+width:245px;
+
+background:#030809;
+
+border-right:1px solid var(--border);
+
+padding:22px 15px;
+
+z-index:20;
+
+}
+
+.brand{
+
+padding:8px 10px 22px;
+
+border-bottom:1px solid #102b2d;
+
+}
+
+.brand-title{
+
+font-family:var(--mono);
+
+font-size:20px;
+
+font-weight:800;
+
+letter-spacing:2px;
+
+color:var(--green);
+
+text-shadow:
+0 0 18px
+rgba(0,255,156,.4);
+
+}
+
+.brand-sub{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:#638082;
+
+letter-spacing:1px;
+
+margin-top:7px;
+
+}
+
+.status{
+
+display:flex;
+
+align-items:center;
+
+gap:7px;
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:var(--green);
+
+margin-top:14px;
+
+}
+
+.dot{
+
+width:7px;
+height:7px;
+
+background:var(--green);
+
+border-radius:50%;
+
+box-shadow:
+0 0 12px var(--green);
+
+animation:pulse 1.5s infinite;
+
+}
+
+@keyframes pulse{
+
+50%{
+opacity:.3;
+transform:scale(.7);
+}
+
+}
+
+.nav{
+
+margin-top:22px;
+
+}
+
+.nav-item{
+
+height:44px;
+
+display:flex;
+
+align-items:center;
+
+gap:11px;
+
+padding:0 13px;
+
+margin-bottom:6px;
+
+border:1px solid transparent;
+
+font-family:var(--mono);
+
+font-size:9px;
+
+color:#698789;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.nav-item:hover{
+
+color:var(--green);
+
+border-color:#164143;
+
+background:rgba(0,255,156,.035);
+
+}
+
+.nav-item.active{
+
+color:var(--green);
+
+border-color:#18534d;
+
+background:
+linear-gradient(
+90deg,
+rgba(0,255,156,.09),
+transparent
+);
+
+box-shadow:
+inset 3px 0 var(--green);
+
+}
+
+.nav-icon{
+
+width:20px;
+
+text-align:center;
+
+font-size:13px;
+
+}
+
+.sidebar-footer{
+
+position:absolute;
+
+bottom:18px;
+
+left:15px;
+right:15px;
+
+border:1px solid #102a2c;
+
+background:#061011;
+
+padding:12px;
+
+font-family:var(--mono);
+
+font-size:7px;
+
+line-height:2;
+
+color:#4d696b;
+
+}
+
+.sidebar-footer b{
+
+color:var(--green);
+
+}
+
+/* MAIN */
+
+.main{
+
+margin-left:245px;
+
+width:calc(100% - 245px);
+
+padding:0 28px 40px;
+
+}
+
+.topbar{
+
+height:65px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+border-bottom:1px solid #102a2c;
+
+}
+
+.path{
+
+font-family:var(--mono);
+
+font-size:9px;
+
+color:#5d797b;
+
+}
+
+.path span{
+
+color:var(--green);
+
+}
+
+.top-right{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.secure{
+
+border:1px solid #185049;
+
+color:var(--green);
+
+background:rgba(0,255,156,.035);
+
+font-family:var(--mono);
+
+font-size:8px;
+
+padding:7px 10px;
+
+}
+
+.clock{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:#557173;
+
+}
+
+/* PAGES */
+
+.page{
+
+display:none;
+
+padding-top:27px;
+
+animation:fade .3s ease;
+
+}
+
+.page.active{
+
+display:block;
+
+}
+
+@keyframes fade{
+
+from{
+opacity:0;
+transform:translateY(7px);
+}
+
+to{
+opacity:1;
+transform:none;
+}
+
+}
+
+/* HERO */
+
+.hero{
+
+margin-bottom:22px;
+
+}
+
+.eyebrow{
+
+font-family:var(--mono);
+
+font-size:9px;
+
+color:var(--green);
+
+letter-spacing:1.8px;
+
+margin-bottom:8px;
+
+}
+
+.hero h1{
+
+font-size:31px;
+
+letter-spacing:-1px;
+
+}
+
+.hero h1 span{
+
+color:var(--green);
+
+text-shadow:
+0 0 20px
+rgba(0,255,156,.25);
+
+}
+
+.hero p{
+
+font-family:var(--mono);
+
+font-size:9px;
+
+line-height:1.8;
+
+color:#668183;
+
+margin-top:8px;
+
+max-width:750px;
+
+}
+
+/* STATS */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:10px;
+
+margin-bottom:15px;
+
+}
+
+.stat{
+
+border:1px solid #123335;
+
+background:#071011;
+
+padding:15px;
+
+}
+
+.stat-label{
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:#4d6a6c;
+
+}
+
+.stat-value{
+
+font-family:var(--mono);
+
+font-size:19px;
+
+font-weight:700;
+
+margin-top:8px;
+
+color:#cde;
+
+}
+
+.green{
+color:var(--green)!important;
+}
+
+.yellow{
+color:var(--yellow)!important;
+}
+
+.red{
+color:var(--red)!important;
+}
+
+/* MAIN GRID */
+
+.scan-grid{
+
+display:grid;
+
+grid-template-columns:
+1.45fr
+.8fr;
+
+gap:13px;
+
+}
+
+/* PANEL */
+
+.panel{
+
+background:
+linear-gradient(
+145deg,
+#071112,
+#040a0b
+);
+
+border:1px solid #123638;
+
+position:relative;
+
+}
+
+.panel:before{
+
+content:"";
+
+position:absolute;
+
+left:17px;
+top:-1px;
+
+width:50px;
+
+height:1px;
+
+background:var(--green);
+
+box-shadow:
+0 0 12px var(--green);
+
+}
+
+.panel-head{
+
+height:46px;
+
+padding:0 16px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+border-bottom:1px solid #102a2c;
+
+}
+
+.panel-title{
+
+font-family:var(--mono);
+
+font-size:9px;
+
+letter-spacing:1px;
+
+color:#9bb9bb;
+
+}
+
+.panel-code{
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:#3d5c5e;
+
+}
+
+/* UPLOAD */
+
+.upload-zone{
+
+margin:16px;
+
+height:260px;
+
+border:1px dashed #225254;
+
+background:
+
+linear-gradient(
+rgba(0,255,156,.025) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(0,255,156,.025) 1px,
+transparent 1px
+),
+
+#061011;
+
+background-size:24px 24px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+flex-direction:column;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.upload-zone:hover,
+.upload-zone.drag{
+
+border-color:var(--green);
+
+box-shadow:
+inset 0 0 40px
+rgba(0,255,156,.04),
+
+0 0 25px
+rgba(0,255,156,.05);
+
+}
+
+.upload-icon{
+
+width:62px;
+height:62px;
+
+border:1px solid #1d5557;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:var(--green);
+
+font-size:25px;
+
+margin-bottom:14px;
+
+}
+
+.upload-title{
+
+font-size:13px;
+
+font-weight:700;
+
+}
+
+.upload-sub{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:#557274;
+
+margin-top:8px;
+
+}
+
+.file-info{
+
+display:none;
+
+margin:0 16px 12px;
+
+padding:10px;
+
+border:1px solid #164042;
+
+background:#061112;
+
+font-family:var(--mono);
+
+font-size:8px;
+
+justify-content:space-between;
+
+}
+
+.file-info.show{
+
+display:flex;
+
+}
+
+.file-name{
+
+color:var(--green);
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+
+white-space:nowrap;
+
+max-width:75%;
+
+}
+
+.file-size{
+
+color:#526e70;
+
+}
+
+/* CONTROLS */
+
+.controls{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:9px;
+
+padding:0 16px;
+
+}
+
+.control{
+
+border:1px solid #123537;
+
+background:#061011;
+
+padding:10px;
+
+}
+
+.control label{
+
+display:block;
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:#4e6c6e;
+
+margin-bottom:7px;
+
+}
+
+select{
+
+width:100%;
+
+background:#081516;
+
+color:#b6ced0;
+
+border:1px solid #173c3e;
+
+padding:8px;
+
+font-family:var(--mono);
+
+font-size:8px;
+
+outline:none;
+
+}
+
+select:focus{
+
+border-color:var(--green);
+
+}
+
+/* BUTTONS */
+
+.button-row{
+
+display:grid;
+
+grid-template-columns:120px 1fr;
+
+gap:9px;
+
+padding:13px 16px 16px;
+
+}
+
+.btn{
+
+height:39px;
+
+border:1px solid #1a4244;
+
+background:#061112;
+
+color:#83a6a8;
+
+font-family:var(--mono);
+
+font-size:8px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.btn:hover{
+
+border-color:var(--green);
+
+color:var(--green);
+
+}
+
+.btn.primary{
+
+border-color:#17816d;
+
+background:rgba(0,255,156,.055);
+
+color:var(--green);
+
+}
+
+.btn.primary:hover{
+
+background:rgba(0,255,156,.11);
+
+}
+
+.btn:disabled{
+
+opacity:.4;
+
+cursor:not-allowed;
+
+}
+
+/* SECURITY MODULES */
+
+.modules{
+
+padding:13px 16px;
+
+}
+
+.module{
+
+height:43px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+border-bottom:1px solid #0e282a;
+
+}
+
+.module:last-child{
+
+border-bottom:0;
+
+}
+
+.module-name{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:#708e90;
+
+}
+
+.module-state{
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:var(--green);
+
+}
+
+/* TERMINAL */
+
+.terminal{
+
+border-top:1px solid #102b2d;
+
+background:#020708;
+
+padding:12px;
+
+height:145px;
+
+overflow:hidden;
+
+}
+
+.terminal-head{
+
+display:flex;
+
+justify-content:space-between;
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:#456264;
+
+padding-bottom:8px;
+
+border-bottom:1px solid #0d2325;
+
+}
+
+.terminal-body{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+line-height:1.9;
+
+color:#607b7d;
+
+padding-top:8px;
+
+}
+
+.terminal-ok{
+
+color:var(--green);
+
+}
+
+/* RESULT */
+
+.result{
+
+margin-top:13px;
+
+display:none;
+
+}
+
+.result.show{
+
+display:block;
+
+}
+
+/* RESULT TOP */
+
+.result-top{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr 1fr 1fr;
+
+gap:9px;
+
+padding:14px;
+
+}
+
+.result-box{
+
+border:1px solid #133638;
+
+background:#061011;
+
+padding:13px;
+
+}
+
+.result-label{
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:#4f6b6d;
+
+}
+
+.result-value{
+
+font-family:var(--mono);
+
+font-size:17px;
+
+font-weight:700;
+
+margin-top:7px;
+
+}
+
+/* ANALYSIS AREA */
+
+.analysis-grid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:13px;
+
+padding:0 14px 14px;
+
+}
+
+/* MISMATCH */
+
+.mismatch-panel{
+
+border:1px solid #183a3c;
+
+background:#050d0e;
+
+}
+
+.mismatch-head{
+
+padding:12px;
+
+border-bottom:1px solid #123033;
+
+display:flex;
+
+justify-content:space-between;
+
+}
+
+.mismatch-title{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:#b1cccc;
+
+}
+
+.mismatch-count{
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:var(--red);
+
+}
+
+.check-list{
+
+max-height:300px;
+
+overflow:auto;
+
+}
+
+.check{
+
+display:grid;
+
+grid-template-columns:25px 1fr;
+
+gap:7px;
+
+padding:10px 12px;
+
+border-bottom:1px solid #0c2527;
+
+}
+
+.check-icon{
+
+font-family:var(--mono);
+
+font-size:9px;
+
+}
+
+.check-main{
+
+min-width:0;
+
+}
+
+.check-name{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:#a8c1c2;
+
+}
+
+.check-message{
+
+font-family:var(--mono);
+
+font-size:7px;
+
+line-height:1.6;
+
+color:#587274;
+
+margin-top:3px;
+
+}
+
+.check.pass .check-icon{
+
+color:var(--green);
+
+}
+
+.check.warn .check-icon{
+
+color:var(--yellow);
+
+}
+
+.check.fail .check-icon{
+
+color:var(--red);
+
+}
+
+/* SCORE */
+
+.score-panel{
+
+border:1px solid #183a3c;
+
+background:#050d0e;
+
+padding:16px;
+
+}
+
+.score-title{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:#a8c1c2;
+
+margin-bottom:15px;
+
+}
+
+.score-row{
+
+margin-bottom:15px;
+
+}
+
+.score-head{
+
+display:flex;
+
+justify-content:space-between;
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:#5b7779;
+
+margin-bottom:6px;
+
+}
+
+.bar{
+
+height:6px;
+
+background:#0b2426;
+
+}
+
+.bar-fill{
+
+height:100%;
+
+width:0;
+
+background:var(--green);
+
+box-shadow:0 0 9px rgba(0,255,156,.4);
+
+transition:1s;
+
+}
+
+.score-note{
+
+border-left:2px solid var(--green);
+
+background:#071314;
+
+padding:11px;
+
+font-family:var(--mono);
+
+font-size:7px;
+
+line-height:1.8;
+
+color:#637e80;
+
+margin-top:18px;
+
+}
+
+/* SCAN PAGE */
+
+.fields{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:9px;
+
+padding:14px;
+
+}
+
+.field{
+
+border:1px solid #123537;
+
+background:#061011;
+
+padding:12px;
+
+}
+
+.field-label{
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:#4f6b6d;
+
+}
+
+.field-value{
+
+font-family:var(--mono);
+
+font-size:9px;
+
+color:#b9d0d1;
+
+margin-top:7px;
+
+word-break:break-word;
+
+}
+
+.missing{
+
+color:#485c5e!important;
+
+}
+
+/* OCR */
+
+.ocr{
+
+margin:0 14px 14px;
+
+padding:13px;
+
+height:280px;
+
+overflow:auto;
+
+white-space:pre-wrap;
+
+font-family:var(--mono);
+
+font-size:8px;
+
+line-height:1.8;
+
+color:#6f8b8d;
+
+background:#020708;
+
+border:1px solid #123234;
+
+}
+
+/* HISTORY */
+
+.history{
+
+padding:14px;
+
+}
+
+.history-item{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:13px;
+
+margin-bottom:8px;
+
+border:1px solid #123537;
+
+background:#061011;
+
+}
+
+.history-name{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:#a7c0c1;
+
+}
+
+.history-meta{
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:#4d696b;
+
+margin-top:5px;
+
+}
+
+.history-risk{
+
+font-family:var(--mono);
+
+font-size:11px;
+
+font-weight:700;
+
+}
+
+/* REPORT */
+
+.report{
+
+padding:18px;
+
+}
+
+.report-header{
+
+padding:18px;
+
+background:#061011;
+
+border:1px solid #15383a;
+
+margin-bottom:13px;
+
+}
+
+.report-brand{
+
+font-family:var(--mono);
+
+font-size:11px;
+
+letter-spacing:2px;
+
+color:var(--green);
+
+}
+
+.report-title{
+
+font-size:24px;
+
+margin-top:7px;
+
+}
+
+.report-id{
+
+font-family:var(--mono);
+
+font-size:7px;
+
+color:#547073;
+
+margin-top:7px;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+font-family:var(--mono);
+
+font-size:8px;
+
+}
+
+td{
+
+border:1px solid #123537;
+
+padding:10px;
+
+}
+
+td:first-child{
+
+color:#527072;
+
+width:35%;
+
+}
+
+td:last-child{
+
+color:#b8cdce;
+
+}
+
+/* OVERLAY */
+
+.overlay{
+
+position:fixed;
+
+inset:0;
+
+z-index:1000;
+
+background:rgba(1,5,6,.94);
+
+backdrop-filter:blur(5px);
+
+display:none;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.overlay.show{
+
+display:flex;
+
+}
+
+.scan-window{
+
+width:min(600px,90%);
+
+background:#03090a;
+
+border:1px solid #196357;
+
+box-shadow:
+0 0 50px
+rgba(0,255,156,.1);
+
+padding:24px;
+
+}
+
+.scan-header{
+
+display:flex;
+
+justify-content:space-between;
+
+font-family:var(--mono);
+
+font-size:8px;
+
+color:var(--green);
+
+margin-bottom:18px;
+
+}
+
+.scan-title{
+
+font-family:var(--mono);
+
+font-size:14px;
+
+color:#d8eeee;
+
+margin-bottom:14px;
+
+}
+
+.progress{
+
+height:4px;
+
+background:#0b2426;
+
+}
+
+.progress-fill{
+
+height:100%;
+
+width:0;
+
+background:var(--green);
+
+box-shadow:0 0 14px var(--green);
+
+transition:.4s;
+
+}
+
+.scan-log{
+
+height:170px;
+
+overflow:hidden;
+
+margin-top:15px;
+
+font-family:var(--mono);
+
+font-size:8px;
+
+line-height:2;
+
+color:#617d7f;
+
+}
+
+.scan-log .active{
+
+color:var(--green);
+
+}
+
+/* ALERT */
+
+.alert{
+
+display:none;
+
+position:fixed;
+
+right:25px;
+
+bottom:25px;
+
+width:330px;
+
+padding:17px;
+
+background:#090b0c;
+
+border:1px solid var(--red);
+
+box-shadow:
+0 0 35px
+rgba(255,49,88,.12);
+
+z-index:1100;
+
+}
+
+.alert.show{
+
+display:block;
+
+}
+
+.alert-title{
+
+font-family:var(--mono);
+
+font-size:10px;
+
+font-weight:700;
+
+color:var(--red);
+
+}
+
+.alert-text{
+
+font-family:var(--mono);
+
+font-size:8px;
+
+line-height:1.8;
+
+color:#839293;
+
+margin-top:8px;
+
+}
+
+.alert-close{
+
+margin-top:11px;
+
+background:transparent;
+
+border:1px solid #64303b;
+
+color:#ff7089;
+
+padding:7px 10px;
+
+font-family:var(--mono);
+
+font-size:7px;
+
+cursor:pointer;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1050px){
+
+.scan-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.stats{
+
+grid-template-columns:
+1fr 1fr;
+
+}
+
+}
+
+@media(max-width:750px){
+
+.sidebar{
+
+position:relative;
+
+width:100%;
+
+height:auto;
+
+min-height:auto;
+
+}
+
+.sidebar-footer{
+
+position:relative;
+
+left:auto;
+right:auto;
+bottom:auto;
+
+margin-top:20px;
+
+}
+
+.main{
+
+margin-left:0;
+
+width:100%;
+
+padding:0 15px 30px;
+
+}
+
+.nav{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+}
+
+.result-top,
+.analysis-grid,
+.fields{
+
+grid-template-columns:1fr;
+
+}
+
+.controls{
+
+grid-template-columns:1fr;
+
+}
+
+.button-row{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media print{
+
+body:before,
+body:after,
+.sidebar,
+.topbar,
+.btn{
+
+display:none!important;
+
+}
+
+.main{
+
+margin:0;
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+====================================================== -->
+
+<aside class="sidebar">
+
+<div class="brand">
+
+<div class="brand-title">
+BLACK SECURITY
+</div>
+
+<div class="brand-sub">
+HEXA NOVA × AI SCREENING
+</div>
+
+<div class="status">
+
+<span class="dot"></span>
+
+SCREENING ENGINE ONLINE
+
+</div>
+
+</div>
+
+
+<nav class="nav">
+
+<div
+class="nav-item active"
+data-page="dashboard"
+>
+
+<span class="nav-icon">⌂</span>
+
+DASHBOARD
+
+</div>
+
+
+<div
+class="nav-item"
+data-page="scan"
+>
+
+<span class="nav-icon">◉</span>
+
+DOCUMENT SCAN
+
+</div>
+
+
+<div
+class="nav-item"
+data-page="risk"
+>
+
+<span class="nav-icon">◈</span>
+
+RISK INTELLIGENCE
+
+</div>
+
+
+<div
+class="nav-item"
+data-page="history"
+>
+
+<span class="nav-icon">▤</span>
+
+SCAN HISTORY
+
+</div>
+
+
+<div
+class="nav-item"
+data-page="report"
+>
+
+<span class="nav-icon">▣</span>
+
+AI REPORT
+
+</div>
+
+</nav>
+
+
+<div class="sidebar-footer">
+
+SYSTEM:
+<b>BLACK SECURITY</b>
+
+<br>
+
+MODE:
+LOCAL SCREENING
+
+<br>
+
+ENGINE:
+FASTAPI + OCR + CV
+
+<br>
+
+GOV API:
+<span>
+NOT CONNECTED
+</span>
+
+</div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main class="main">
+
+
+<div class="topbar">
+
+<div class="path">
+
+root@black-security:
+<span>
+~/identity-screening
+</span>
+
+$ _
+
+</div>
+
+
+<div class="top-right">
+
+<div class="secure">
+◉ SECURE LOCAL NODE
+</div>
+
+<div
+class="clock"
+id="clock"
+>
+--:--:--
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     DASHBOARD
+====================================================== -->
+
+<section
+class="page active"
+id="dashboard"
+>
+
+
+<div class="hero">
+
+<div class="eyebrow">
+// AI-BASED DOCUMENT SECURITY
+</div>
+
+<h1>
+
+IDENTITY
+<span>
+SCREENING
+</span>
+TERMINAL
+
+</h1>
+
+<p>
+
+Analyze document image structure,
+OCR fields, expected indicators and
+consistency signals to identify documents
+requiring additional manual verification.
+
+</p>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-label">
+SYSTEM STATUS
+</div>
+
+<div class="stat-value green">
+ONLINE
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+DOCUMENTS SCANNED
+</div>
+
+<div
+class="stat-value"
+id="totalScans"
+>
+0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+LAST RISK SIGNAL
+</div>
+
+<div
+class="stat-value"
+id="lastRisk"
+>
+--
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-label">
+ANALYSIS ENGINE
+</div>
+
+<div class="stat-value green">
+OCR + CV
+</div>
+
+</div>
+
+</div>
+
+
+<div class="scan-grid">
+
+
+<!-- UPLOAD PANEL -->
+
+<div class="panel">
+
+<div class="panel-head">
+
+<div class="panel-title">
+DOCUMENT INGESTION
+</div>
+
+<div class="panel-code">
+INPUT_01
+</div>
+
+</div>
+
+
+<div
+class="upload-zone"
+id="uploadZone"
+>
+
+<div class="upload-icon">
+⇧
+</div>
+
+<div class="upload-title">
+DROP DOCUMENT IMAGE
+</div>
+
+<div class="upload-sub">
+JPG / JPEG / PNG • OCR READY
+</div>
+
+<div class="upload-sub">
+CLICK TO INITIALIZE SECURE UPLOAD
+</div>
+
+<input
+type="file"
+id="fileInput"
+accept="image/png,image/jpeg,image/jpg"
+hidden
+>
+
+</div>
+
+
+<div
+class="file-info"
+id="fileInfo"
+>
+
+<div
+class="file-name"
+id="fileName"
+>
+--
+</div>
+
+<div
+class="file-size"
+id="fileSize"
+>
+--
+</div>
+
+</div>
+
+
+<div class="controls">
+
+<div class="control">
+
+<label>
+DOCUMENT TYPE
+</label>
+
+<select id="documentType">
+
+<option value="auto">
+AUTO DETECT
+</option>
+
+<option value="passport">
+PASSPORT
+</option>
+
+<option value="visa">
+VISA
+</option>
+
+<option value="national_id">
+NATIONAL ID
+</option>
+
+<option value="driving_license">
+DRIVING LICENSE
+</option>
+
+</select>
+
+</div>
+
+
+<div class="control">
+
+<label>
+ANALYSIS MODE
+</label>
+
+<select id="analysisMode">
+
+<option>
+FULL SCREENING
+</option>
+
+<option>
+OCR + STRUCTURE
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="button-row">
+
+<button
+class="btn"
+id="resetBtn"
+>
+RESET
+</button>
+
+<button
+class="btn primary"
+id="scanBtn"
+disabled
+>
+START AI SCREENING →
+</button>
+
+</div>
+
+</div>
+
+
+<!-- MODULE PANEL -->
+
+<div class="panel">
+
+<div class="panel-head">
+
+<div class="panel-title">
+SECURITY MODULES
+</div>
+
+<div class="panel-code">
+CORE
+</div>
+
+</div>
+
+
+<div class="modules">
+
+<div class="module">
+
+<div class="module-name">
+IMAGE PREPROCESSING
+</div>
+
+<div class="module-state">
+ACTIVE
+</div>
+
+</div>
+
+
+<div class="module">
+
+<div class="module-name">
+TESSERACT OCR
+</div>
+
+<div class="module-state">
+READY
+</div>
+
+</div>
+
+
+<div class="module">
+
+<div class="module-name">
+DOCUMENT DETECTION
+</div>
+
+<div class="module-state">
+READY
+</div>
+
+</div>
+
+
+<div class="module">
+
+<div class="module-name">
+FIELD ANALYSIS
+</div>
+
+<div class="module-state">
+READY
+</div>
+
+</div>
+
+
+<div class="module">
+
+<div class="module-name">
+FORMAT CHECK
+</div>
+
+<div class="module-state">
+READY
+</div>
+
+</div>
+
+
+<div class="module">
+
+<div class="module-name">
+RISK ENGINE
+</div>
+
+<div class="module-state">
+READY
+</div>
+
+</div>
+
+
+<div class="module">
+
+<div class="module-name">
+GOVERNMENT API
+</div>
+
+<div
+class="module-state"
+style="color:#637879"
+>
+NOT CONNECTED
+</div>
+
+</div>
+
+</div>
+
+
+<div class="terminal">
+
+<div class="terminal-head">
+
+<span>
+SYSTEM TERMINAL
+</span>
+
+<span>
+LIVE
+</span>
+
+</div>
+
+
+<div
+class="terminal-body"
+id="terminal"
+>
+
+<div>
+<span class="terminal-ok">
+[OK]
+</span>
+
+BLACK SECURITY initialized
+</div>
+
+<div>
+<span class="terminal-ok">
+[OK]
+</span>
+
+FastAPI endpoint configured
+</div>
+
+<div>
+<span class="terminal-ok">
+[OK]
+</span>
+
+OCR pipeline standing by
+</div>
+
+<div>
+<span class="terminal-ok">
+[OK]
+</span>
+
+Format comparison ready
+</div>
+
+<div>
+&gt; Awaiting document input
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     RESULT
+====================================================== -->
+
+<div
+class="panel result"
+id="resultCard"
+>
+
+<div class="panel-head">
+
+<div class="panel-title">
+SCREENING RESULT
+</div>
+
+<div class="panel-code">
+OUTPUT_01
+</div>
+
+</div>
+
+
+<div class="result-top">
+
+
+<div class="result-box">
+
+<div class="result-label">
+DOCUMENT TYPE
+</div>
+
+<div
+class="result-value"
+id="resultType"
+>
+--
+</div>
+
+</div>
+
+
+<div class="result-box">
+
+<div class="result-label">
+FORMAT MATCH
+</div>
+
+<div
+class="result-value green"
+id="formatMatch"
+>
+--
+</div>
+
+</div>
+
+
+<div class="result-box">
+
+<div class="result-label">
+RISK SIGNAL
+</div>
+
+<div
+class="result-value"
+id="riskScore"
+>
+--
+</div>
+
+</div>
+
+
+<div class="result-box">
+
+<div class="result-label">
+STATUS
+</div>
+
+<div
+class="result-value"
+id="riskStatus"
+>
+--
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ANALYSIS -->
+
+<div class="analysis-grid">
+
+
+<!-- WHAT FAILED -->
+
+<div class="mismatch-panel">
+
+<div class="mismatch-head">
+
+<div class="mismatch-title">
+WHAT DID NOT MATCH?
+</div>
+
+<div
+class="mismatch-count"
+id="mismatchCount"
+>
+0 ISSUES
+</div>
+
+</div>
+
+
+<div
+class="check-list"
+id="checkList"
+>
+
+<div style="
+padding:20px;
+text-align:center;
+font-family:var(--mono);
+font-size:8px;
+color:#526e70;
+">
+
+No analysis available.
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SCORE BREAKDOWN -->
+
+<div class="score-panel">
+
+<div class="score-title">
+SCREENING SCORE BREAKDOWN
+</div>
+
+
+<div class="score-row">
+
+<div class="score-head">
+
+<span>
+IMAGE QUALITY
+</span>
+
+<span id="qualityText">
+--
+</span>
+
+</div>
+
+<div class="bar">
+
+<div
+class="bar-fill"
+id="qualityBar"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="score-row">
+
+<div class="score-head">
+
+<span>
+STRUCTURE MATCH
+</span>
+
+<span id="structureText">
+--
+</span>
+
+</div>
+
+<div class="bar">
+
+<div
+class="bar-fill"
+id="structureBar"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="score-row">
+
+<div class="score-head">
+
+<span>
+FIELD CONSISTENCY
+</span>
+
+<span id="consistencyText">
+--
+</span>
+
+</div>
+
+<div class="bar">
+
+<div
+class="bar-fill"
+id="consistencyBar"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="score-note">
+
+<b style="color:var(--green)">
+SCREENING NOTE
+</b>
+
+<br><br>
+
+Risk is calculated from structural,
+quality and consistency signals.
+
+A high-risk signal means the document
+should receive additional authorized
+manual verification.
+
+It is not by itself proof that the
+document is fake or forged.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     DOCUMENT SCAN
+====================================================== -->
+
+<section
+class="page"
+id="scan"
+>
+
+<div class="hero">
+
+<div class="eyebrow">
+// OCR EXTRACTION
+</div>
+
+<h1>
+DOCUMENT
+<span>
+SCAN
+</span>
+CONSOLE
+</h1>
+
+<p>
+Extracted identity fields and raw OCR output.
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<div class="panel-title">
+EXTRACTED FIELDS
+</div>
+
+<div class="panel-code">
+OCR_OUTPUT
+</div>
+
+</div>
+
+
+<div class="fields">
+
+<div class="field">
+
+<div class="field-label">
+FULL NAME
+</div>
+
+<div
+class="field-value missing"
+id="fieldName"
+>
+NOT DETECTED
+</div>
+
+</div>
+
+
+<div class="field">
+
+<div class="field-label">
+DATE OF BIRTH
+</div>
+
+<div
+class="field-value missing"
+id="fieldDob"
+>
+NOT DETECTED
+</div>
+
+</div>
+
+
+<div class="field">
+
+<div class="field-label">
+DOCUMENT NUMBER
+</div>
+
+<div
+class="field-value missing"
+id="fieldDocument"
+>
+NOT DETECTED
+</div>
+
+</div>
+
+
+<div class="field">
+
+<div class="field-label">
+NATIONALITY
+</div>
+
+<div
+class="field-value missing"
+id="fieldNationality"
+>
+NOT DETECTED
+</div>
+
+</div>
+
+
+<div class="field">
+
+<div class="field-label">
+GENDER / SEX
+</div>
+
+<div
+class="field-value missing"
+id="fieldGender"
+>
+NOT DETECTED
+</div>
+
+</div>
+
+
+<div class="field">
+
+<div class="field-label">
+EXPIRY
+</div>
+
+<div
+class="field-value missing"
+id="fieldExpiry"
+>
+NOT DETECTED
+</div>
+
+</div>
+
+
+<div class="field">
+
+<div class="field-label">
+VISA TYPE
+</div>
+
+<div
+class="field-value missing"
+id="fieldVisaType"
+>
+NOT DETECTED
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+class="panel"
+style="margin-top:13px"
+>
+
+<div class="panel-head">
+
+<div class="panel-title">
+RAW OCR OUTPUT
+</div>
+
+<div class="panel-code">
+TESSERACT
+</div>
+
+</div>
+
+
+<div
+class="ocr"
+id="ocrText"
+>
+No document analyzed yet.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     RISK
+====================================================== -->
+
+<section
+class="page"
+id="risk"
+>
+
+<div class="hero">
+
+<div class="eyebrow">
+// THREAT INTELLIGENCE
+</div>
+
+<h1>
+RISK
+<span>
+INTELLIGENCE
+</span>
+</h1>
+
+<p>
+Detailed breakdown of the latest screening signal.
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<div class="panel-title">
+CURRENT RISK SIGNAL
+</div>
+
+<div class="panel-code">
+RISK_ENGINE
+</div>
+
+</div>
+
+
+<div class="score-panel"
+style="border:0"
+>
+
+<div
+style="
+text-align:center;
+padding:15px 0 25px;
+"
+>
+
+<div
+id="bigRisk"
+style="
+font-family:var(--mono);
+font-size:58px;
+font-weight:800;
+color:var(--green);
+"
+>
+--
+</div>
+
+<div
+style="
+font-family:var(--mono);
+font-size:8px;
+color:#526e70;
+"
+>
+FORMAT / CONSISTENCY RISK SIGNAL
+</div>
+
+<div class="bar"
+style="margin-top:12px"
+>
+
+<div
+class="bar-fill"
+id="riskBar"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="score-row">
+
+<div class="score-head">
+
+<span>
+IMAGE QUALITY
+</span>
+
+<span id="riskQuality">
+--
+</span>
+
+</div>
+
+<div class="bar">
+
+<div
+class="bar-fill"
+id="riskQualityBar"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="score-row">
+
+<div class="score-head">
+
+<span>
+STRUCTURE MATCH
+</span>
+
+<span id="riskStructure">
+--
+</span>
+
+</div>
+
+<div class="bar">
+
+<div
+class="bar-fill"
+id="riskStructureBar"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="score-row">
+
+<div class="score-head">
+
+<span>
+FIELD CONSISTENCY
+</span>
+
+<span id="riskConsistency">
+--
+</span>
+
+</div>
+
+<div class="bar">
+
+<div
+class="bar-fill"
+id="riskConsistencyBar"
+>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     HISTORY
+====================================================== -->
+
+<section
+class="page"
+id="history"
+>
+
+<div class="hero">
+
+<div class="eyebrow">
+// LOCAL AUDIT TRAIL
+</div>
+
+<h1>
+SCAN
+<span>
+HISTORY
+</span>
+</h1>
+
+<p>
+Previous screening sessions stored locally in this browser.
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<div class="panel-title">
+SCREENING LOG
+</div>
+
+<button
+class="btn"
+style="height:28px;padding:0 10px"
+onclick="clearHistory()"
+>
+CLEAR
+</button>
+
+</div>
+
+
+<div
+class="history"
+id="historyList"
+>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     REPORT
+====================================================== -->
+
+<section
+class="page"
+id="report"
+>
+
+<div class="hero">
+
+<div class="eyebrow">
+// DECISION SUPPORT REPORT
+</div>
+
+<h1>
+AI
+<span>
+SCREENING
+</span>
+REPORT
+</h1>
+
+</div>
+
+
+<div class="panel">
+
+<div class="report">
+
+<div class="report-header">
+
+<div class="report-brand">
+BLACK SECURITY
+</div>
+
+<div class="report-title">
+Document Screening Report
+</div>
+
+<div
+class="report-id"
+id="reportId"
+>
+REPORT ID: --
+</div>
+
+</div>
+
+
+<table>
+
+<tr>
+<td>FILE</td>
+<td id="reportFile">--</td>
+</tr>
+
+<tr>
+<td>DOCUMENT TYPE</td>
+<td id="reportType">--</td>
+</tr>
+
+<tr>
+<td>FORMAT MATCH</td>
+<td id="reportMatch">--</td>
+</tr>
+
+<tr>
+<td>RISK SIGNAL</td>
+<td id="reportRisk">--</td>
+</tr>
+
+<tr>
+<td>IMAGE QUALITY</td>
+<td id="reportQuality">--</td>
+</tr>
+
+<tr>
+<td>STRUCTURE</td>
+<td id="reportStructure">--</td>
+</tr>
+
+<tr>
+<td>CONSISTENCY</td>
+<td id="reportConsistency">--</td>
+</tr>
+
+<tr>
+<td>STATUS</td>
+<td id="reportStatus">--</td>
+</tr>
+
+<tr>
+<td>GOVERNMENT VERIFICATION</td>
+<td>NOT CONNECTED</td>
+</tr>
+
+</table>
+
+
+<button
+class="btn primary"
+style="
+margin-top:14px;
+padding:0 18px;
+"
+onclick="window.print()"
+>
+PRINT / SAVE REPORT
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     SCAN OVERLAY
+====================================================== -->
+
+<div
+class="overlay"
+id="overlay"
+>
+
+<div class="scan-window">
+
+<div class="scan-header">
+
+<span>
+BLACK SECURITY // LIVE ANALYSIS
+</span>
+
+<span>
+PROCESSING
+</span>
+
+</div>
+
+
+<div
+class="scan-title"
+id="scanTitle"
+>
+INITIALIZING SCREENING ENGINE...
+</div>
+
+
+<div class="progress">
+
+<div
+class="progress-fill"
+id="progress"
+>
+</div>
+
+</div>
+
+
+<div
+class="scan-log"
+id="scanLog"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ALERT -->
+
+<div
+class="alert"
+id="alert"
+>
+
+<div class="alert-title">
+⚠ HIGH RISK REVIEW SIGNAL
+</div>
+
+<div
+class="alert-text"
+id="alertText"
+>
+--
+</div>
+
+<button
+class="alert-close"
+onclick="closeAlert()"
+>
+ACKNOWLEDGE
+</button>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const API_URL =
+"";
+
+
+let state = {
+
+file:null,
+
+result:null,
+
+history:
+JSON.parse(
+localStorage.getItem(
+"blackSecurityHistory"
+) || "[]"
+)
+
+};
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function $(id){
+
+return document.getElementById(id);
+
+}
+
+
+function escapeHTML(value){
+
+if(
+value === null ||
+value === undefined
+){
+
+return "";
+
+}
+
+return String(value)
+
+.replaceAll("&","&amp;")
+
+.replaceAll("<","&lt;")
+
+.replaceAll(">","&gt;")
+
+.replaceAll('"',"&quot;")
+
+.replaceAll("'","&#039;");
+
+}
+
+
+function typeLabel(type){
+
+const names={
+
+passport:"PASSPORT",
+
+visa:"VISA",
+
+national_id:"NATIONAL ID",
+
+driving_license:
+"DRIVING LICENSE",
+
+unknown:"UNKNOWN"
+
+};
+
+return names[type] || "UNKNOWN";
+
+}
+
+
+function wait(ms){
+
+return new Promise(
+resolve =>
+setTimeout(resolve,ms)
+);
+
+}
+
+
+/* =====================================================
+   CLOCK
+===================================================== */
+
+function clock(){
+
+$("clock").textContent =
+new Date().toLocaleTimeString(
+"en-IN",
+{
+hour12:false
+}
+);
+
+}
+
+setInterval(
+clock,
+1000
+);
+
+clock();
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+document
+.querySelectorAll(".nav-item")
+.forEach(item=>{
+
+item.addEventListener(
+"click",
+()=>{
+
+document
+.querySelectorAll(".nav-item")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+item.classList.add("active");
+
+
+document
+.querySelectorAll(".page")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+
+$(item.dataset.page)
+.classList.add("active");
+
+
+if(
+item.dataset.page === "history"
+){
+
+renderHistory();
+
+}
+
+if(
+item.dataset.page === "report"
+){
+
+updateReport();
+
+}
+
+}
+);
+
+});
+
+
+/* =====================================================
+   FILE
+===================================================== */
+
+$("uploadZone")
+.addEventListener(
+"click",
+()=>
+$("fileInput").click()
+);
+
+
+$("fileInput")
+.addEventListener(
+"change",
+e=>{
+
+if(e.target.files[0]){
+
+selectFile(
+e.target.files[0]
+);
+
+}
+
+}
+);
+
+
+$("uploadZone")
+.addEventListener(
+"dragover",
+e=>{
+
+e.preventDefault();
+
+$("uploadZone")
+.classList.add("drag");
+
+}
+);
+
+
+$("uploadZone")
+.addEventListener(
+"dragleave",
+()=>
+$("uploadZone")
+.classList.remove("drag")
+);
+
+
+$("uploadZone")
+.addEventListener(
+"drop",
+e=>{
+
+e.preventDefault();
+
+$("uploadZone")
+.classList.remove("drag");
+
+const file =
+e.dataTransfer.files[0];
+
+if(
+file &&
+file.type.startsWith("image/")
+){
+
+selectFile(file);
+
+}
+
+}
+);
+
+
+function selectFile(file){
+
+state.file = file;
+
+$("fileName").textContent =
+file.name;
+
+$("fileSize").textContent =
+formatBytes(file.size);
+
+$("fileInfo")
+.classList.add("show");
+
+$("scanBtn").disabled =
+false;
+
+terminal(
+"[INPUT] Document loaded: " +
+file.name
+);
+
+}
+
+
+function formatBytes(bytes){
+
+if(bytes < 1024){
+
+return bytes+" B";
+
+}
+
+if(bytes < 1024*1024){
+
+return (
+bytes/1024
+).toFixed(1)+" KB";
+
+}
+
+return (
+bytes/(1024*1024)
+).toFixed(2)+" MB";
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+$("resetBtn")
+.addEventListener(
+"click",
+reset
+);
+
+
+function reset(){
+
+state.file=null;
+state.result=null;
+
+$("fileInput").value="";
+
+$("fileInfo")
+.classList.remove("show");
+
+$("scanBtn").disabled=true;
+
+$("resultCard")
+.classList.remove("show");
+
+$("ocrText").textContent =
+"No document analyzed yet.";
+
+const ids=[
+
+"fieldName",
+"fieldDob",
+"fieldDocument",
+"fieldNationality",
+"fieldGender",
+"fieldExpiry",
+"fieldVisaType"
+
+];
+
+ids.forEach(id=>{
+
+$(id).textContent =
+"NOT DETECTED";
+
+$(id)
+.classList.add("missing");
+
+});
+
+}
+
+
+/* =====================================================
+   SCREENING
+===================================================== */
+
+$("scanBtn")
+.addEventListener(
+"click",
+analyze
+);
+
+
+async function analyze(){
+
+if(!state.file){
+
+return;
+
+}
+
+
+$("scanBtn").disabled=true;
+
+showOverlay();
+
+
+try{
+
+addScanLog(
+"[INIT] Secure screening pipeline started..."
+);
+
+setProgress(10);
+
+await wait(250);
+
+
+addScanLog(
+"[CV] Image preprocessing..."
+);
+
+setProgress(22);
+
+await wait(250);
+
+
+addScanLog(
+"[OCR] Extracting document text..."
+);
+
+setProgress(40);
+
+await wait(300);
+
+
+const form =
+new FormData();
+
+form.append(
+"file",
+state.file
+);
+
+
+const response =
+await fetch(
+API_URL+"/analyze",
+{
+method:"POST",
+body:form
+}
+);
+
+
+if(!response.ok){
+
+throw new Error(
+"Backend HTTP "+
+response.status
+);
+
+}
+
+
+const data =
+await response.json();
+
+
+if(!data.success){
+
+throw new Error(
+data.error ||
+"Analysis failed"
+);
+
+}
+
+
+addScanLog(
+"[TYPE] Detecting document type..."
+);
+
+setProgress(55);
+
+await wait(250);
+
+
+addScanLog(
+"[MATCH] Checking expected fields..."
+);
+
+setProgress(70);
+
+await wait(250);
+
+
+addScanLog(
+"[RISK] Calculating risk signal..."
+);
+
+setProgress(88);
+
+await wait(250);
+
+
+addScanLog(
+"[DONE] Screening completed."
+);
+
+setProgress(100);
+
+
+state.result=data;
+
+
+updateResult();
+
+updateFields();
+
+updateRisk();
+
+updateReport();
+
+saveHistory();
+
+updateStats();
+
+
+await wait(450);
+
+hideOverlay();
+
+
+if(data.risk>=60){
+
+showAlert(data);
+
+}
+
+}
+catch(error){
+
+console.error(error);
+
+hideOverlay();
+
+terminal(
+"[ERROR] "+
+error.message
+);
+
+
+$("resultCard")
+.classList.add("show");
+
+
+$("explanation") &&
+(
+$("explanation").textContent =
+"Backend error: "+
+error.message
+);
+
+}
+finally{
+
+$("scanBtn").disabled =
+!state.file;
+
+}
+
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+function updateResult(){
+
+const r =
+state.result;
+
+$("resultCard")
+.classList.add("show");
+
+
+$("resultType").textContent =
+typeLabel(r.documentType);
+
+
+$("formatMatch").textContent =
+r.formatMatch+"%";
+
+
+$("riskScore").textContent =
+r.risk+"%";
+
+
+$("riskStatus").textContent =
+r.status;
+
+
+$("qualityText").textContent =
+r.quality+"%";
+
+
+$("structureText").textContent =
+r.structure+"%";
+
+
+$("consistencyText").textContent =
+r.consistency+"%";
+
+
+setRiskClass(
+$("riskScore"),
+r.risk
+);
+
+setRiskClass(
+$("riskStatus"),
+r.risk
+);
+
+
+updateChecks(
+r.checks || []
+);
+
+
+$("qualityBar")
+.style.width =
+r.quality+"%";
+
+
+$("structureBar")
+.style.width =
+r.structure+"%";
+
+
+$("consistencyBar")
+.style.width =
+r.consistency+"%";
+
+}
+
+
+/* =====================================================
+   WHAT DID NOT MATCH
+===================================================== */
+
+function updateChecks(checks){
+
+const container =
+$("checkList");
+
+const failures =
+checks.filter(
+x =>
+x.status === "FAIL"
+);
+
+
+const warnings =
+checks.filter(
+x =>
+x.status === "WARN"
+);
+
+
+$("mismatchCount")
+.textContent =
+(
+failures.length +
+warnings.length
+)+
+" ISSUES";
+
+
+if(!checks.length){
+
+container.innerHTML=`
+
+<div style="
+padding:20px;
+text-align:center;
+font-family:var(--mono);
+font-size:8px;
+color:#526e70;
+">
+
+NO CHECK DATA RETURNED
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+container.innerHTML =
+checks.map(check=>{
+
+let cls="pass";
+let icon="✓";
+
+if(check.status==="WARN"){
+
+cls="warn";
+icon="⚠";
+
+}
+
+if(check.status==="FAIL"){
+
+cls="fail";
+icon="✕";
+
+}
+
+return `
+
+<div class="check ${cls}">
+
+<div class="check-icon">
+${icon}
+</div>
+
+<div class="check-main">
+
+<div class="check-name">
+
+${escapeHTML(check.name)}
+
+</div>
+
+<div class="check-message">
+
+${escapeHTML(check.message)}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =====================================================
+   FIELDS
+===================================================== */
+
+function updateFields(){
+
+const f =
+state.result.fields || {};
+
+
+setField(
+"fieldName",
+f.name
+);
+
+setField(
+"fieldDob",
+f.dob
+);
+
+setField(
+"fieldDocument",
+f.document_number
+);
+
+setField(
+"fieldNationality",
+f.nationality
+);
+
+setField(
+"fieldGender",
+f.gender
+);
+
+setField(
+"fieldExpiry",
+f.expiry
+);
+
+setField(
+"fieldVisaType",
+f.visa_type
+);
+
+
+$("ocrText").textContent =
+state.result.ocrText ||
+"No OCR text detected.";
+
+}
+
+
+function setField(id,value){
+
+if(value){
+
+$(id).textContent =
+value;
+
+$(id)
+.classList.remove("missing");
+
+}
+else{
+
+$(id).textContent =
+"NOT DETECTED";
+
+$(id)
+.classList.add("missing");
+
+}
+
+}
+
+
+/* =====================================================
+   RISK
+===================================================== */
+
+function updateRisk(){
+
+const r =
+state.result;
+
+
+$("bigRisk").textContent =
+r.risk+"%";
+
+
+$("riskBar")
+.style.width =
+r.risk+"%";
+
+
+$("riskQuality")
+.textContent =
+r.quality+"%";
+
+
+$("riskQualityBar")
+.style.width =
+r.quality+"%";
+
+
+$("riskStructure")
+.textContent =
+r.structure+"%";
+
+
+$("riskStructureBar")
+.style.width =
+r.structure+"%";
+
+
+$("riskConsistency")
+.textContent =
+r.consistency+"%";
+
+
+$("riskConsistencyBar")
+.style.width =
+r.consistency+"%";
+
+
+setRiskClass(
+$("bigRisk"),
+r.risk
+);
+
+}
+
+
+function setRiskClass(el,risk){
+
+el.classList.remove(
+"green",
+"yellow",
+"red"
+);
+
+if(risk>=60){
+
+el.classList.add("red");
+
+}
+else if(risk>=30){
+
+el.classList.add("yellow");
+
+}
+else{
+
+el.classList.add("green");
+
+}
+
+}
+
+
+/* =====================================================
+   REPORT
+===================================================== */
+
+function updateReport(){
+
+const r =
+state.result;
+
+if(!r){
+
+return;
+
+}
+
+
+$("reportId").textContent =
+"REPORT ID: "+
+r.reportId;
+
+$("reportFile").textContent =
+r.fileName;
+
+$("reportType").textContent =
+typeLabel(r.documentType);
+
+$("reportMatch").textContent =
+r.formatMatch+"%";
+
+$("reportRisk").textContent =
+r.risk+"%";
+
+$("reportQuality").textContent =
+r.quality+"%";
+
+$("reportStructure").textContent =
+r.structure+"%";
+
+$("reportConsistency").textContent =
+r.consistency+"%";
+
+$("reportStatus").textContent =
+r.status;
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function saveHistory(){
+
+const r =
+state.result;
+
+if(!r){
+
+return;
+
+}
+
+
+state.history.unshift({
+
+id:r.reportId,
+
+fileName:r.fileName,
+
+documentType:r.documentType,
+
+risk:r.risk,
+
+formatMatch:r.formatMatch,
+
+status:r.status,
+
+time:r.time
+
+});
+
+
+state.history =
+state.history.slice(
+0,
+30
+);
+
+
+localStorage.setItem(
+"blackSecurityHistory",
+JSON.stringify(
+state.history
+)
+);
+
+
+renderHistory();
+
+}
+
+
+function renderHistory(){
+
+const box =
+$("historyList");
+
+
+if(!state.history.length){
+
+box.innerHTML=`
+
+<div style="
+padding:25px;
+text-align:center;
+font-family:var(--mono);
+font-size:8px;
+color:#506b6d;
+">
+
+NO PREVIOUS SCANS
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+box.innerHTML =
+state.history
+.map(item=>{
+
+const cls =
+item.risk>=60
+?"red"
+:
+item.risk>=30
+?"yellow"
+:
+"green";
+
+
+return `
+
+<div class="history-item">
+
+<div>
+
+<div class="history-name">
+
+${escapeHTML(item.fileName)}
+
+</div>
+
+<div class="history-meta">
+
+${typeLabel(item.documentType)}
+•
+${escapeHTML(item.time)}
+•
+${escapeHTML(item.id)}
+
+</div>
+
+</div>
+
+<div class="history-risk ${cls}">
+
+${item.risk}%
+
+</div>
+
+</div>
+
+`;
+
+})
+.join("");
+
+}
+
+
+function clearHistory(){
+
+state.history=[];
+
+localStorage.removeItem(
+"blackSecurityHistory"
+);
+
+renderHistory();
+
+updateStats();
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function updateStats(){
+
+$("totalScans").textContent =
+state.history.length;
+
+
+if(state.result){
+
+$("lastRisk").textContent =
+state.result.risk+"%";
+
+setRiskClass(
+$("lastRisk"),
+state.result.risk
+);
+
+}
+
+}
+
+
+/* =====================================================
+   TERMINAL
+===================================================== */
+
+function terminal(text){
+
+const t =
+$("terminal");
+
+const div =
+document.createElement("div");
+
+div.textContent=text;
+
+t.appendChild(div);
+
+
+while(
+t.children.length>7
+){
+
+t.removeChild(
+t.firstChild
+);
+
+}
+
+}
+
+
+/* =====================================================
+   OVERLAY
+===================================================== */
+
+function showOverlay(){
+
+$("overlay")
+.classList.add("show");
+
+$("scanLog").innerHTML="";
+
+setProgress(0);
+
+}
+
+
+function hideOverlay(){
+
+$("overlay")
+.classList.remove("show");
+
+}
+
+
+function setProgress(value){
+
+$("progress")
+.style.width =
+value+"%";
+
+}
+
+
+function addScanLog(text){
+
+const div =
+document.createElement("div");
+
+div.className="active";
+
+div.textContent=text;
+
+$("scanLog")
+.appendChild(div);
+
+}
+
+
+/* =====================================================
+   ALERT
+===================================================== */
+
+function showAlert(data){
+
+$("alertText").innerHTML=`
+
+Risk signal:
+<b>${data.risk}%</b>
+
+<br><br>
+
+Format match:
+${data.formatMatch}%
+
+<br>
+
+Status:
+${escapeHTML(data.status)}
+
+<br><br>
+
+Manual authorized verification is recommended.
+
+`;
+
+
+$("alert")
+.classList.add("show");
+
+}
+
+
+function closeAlert(){
+
+$("alert")
+.classList.remove("show");
+
+}
+
+
+/* =====================================================
+   INIT
+===================================================== */
+
+renderHistory();
+
+updateStats();
+
+</script>
+
+</body>
+
+</html>

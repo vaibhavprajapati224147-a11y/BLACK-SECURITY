@@ -1,0 +1,12 @@
+{
+    "document_type": "national_id",
+    "reference_width": 500,
+    "reference_height": 700,
+    "required_fields": [
+        "name",
+        "id_number",
+        "date_of_birth",
+        "gender"
+    ],
+    "mrz_required": false
+}

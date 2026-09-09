@@ -1,0 +1,14 @@
+{
+    "document_type": "visa",
+    "reference_width": 500,
+    "reference_height": 700,
+    "required_fields": [
+        "name",
+        "visa_number",
+        "visa_type",
+        "entry_validation",
+        "stay_duration",
+        "expiry_date"
+    ],
+    "mrz_required": false
+}
